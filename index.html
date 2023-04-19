@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>weather</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="card">
+		<div class="search-box">
+			<input type="text" id="srch" placeholder="Enter Your Location" name="serch"/>
+			<div class="search-img" onclick="Search()"><img src="./image/search.png" alt="wrong path"/></div>
+		</div>
+		<div class="weather">
+			<img src="./image/sun.png" id="watherIMG"  alt="path wrong"/>
+			<h1><span id="temp">25</span> &#8451;</h1>
+			<h4 id="name">Lucknow</h4>
+		</div>
+		<div class="Add-info">
+			<div class="left">
+				<img src="./image/humidity.png"/>
+				<p><b>Humidity</b><br/><span id="hum">46</span>%</p>
+			</div>
+			<div class="right">
+				<img src="./image/wind.png"/>
+				<p><b>Wind</b><br/><span id="wind">5</span> km/h</p>
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	const apikey = '1b0c76fd8f5cf843ae3123bf9a43bc76';
+	const weatherURL = 'https://api.openweathermap.org/data/2.5/weather?q=lucknow&appid=1b0c76fd8f5cf843ae3123bf9a43bc76&units=metric';
+	const watherIMG = document.getElementById('watherIMG')
+
+	async function checkWeather(ctname){
+		const responce = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ctname}&appid=1b0c76fd8f5cf843ae3123bf9a43bc76&units=metric`)
+		var data  = await responce.json();
+		
+		console.log(data)
+		document.getElementById('temp').innerHTML = Math.round(data.main.temp);
+		document.getElementById('name').innerText = data.name;
+		document.getElementById('hum').innerHTML = data.main.humidity;
+		document.getElementById('wind').innerHTML = data.wind.speed;
+
+		if(data.weather[0].main=='Clouds'){
+			watherIMG.src="./image/clouds.png"
+		}
+		else if(data.weather[0].main=='Clear'){
+			watherIMG.src="./image/sun.png"
+		}
+		else if(data.weather[0].main=='Rain'){
+			watherIMG.src="./image/rain.png"
+		}
+
+		else if(data.weather[0].main=='Drizzle'){
+			watherIMG.src="./image/cloudy.png"
+		}
+	}
+
+
+	function Search(){
+		let serch = document.getElementById('srch')
+		checkWeather(serch.value)
+	}
+</script>
+</body>
+</html>
