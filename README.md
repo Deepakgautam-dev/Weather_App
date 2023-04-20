@@ -1,3 +1,3 @@
-# Weather_App
+# Weather_Application
 ----
-- site [website](https://deepakgautam-dev.github.io/weather_application/index.html)
+- site [website](https://deepakgautam-dev.github.io/Weather_App/index.html)
